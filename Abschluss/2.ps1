@@ -1,0 +1,1 @@
+﻿Get-ChildItem -Path C:\Windows -File | Measure-Object -Property Length -Sum
