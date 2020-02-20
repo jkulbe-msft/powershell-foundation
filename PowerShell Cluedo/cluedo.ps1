@@ -1,5 +1,6 @@
 #1
-$start = nslookup -q=TXT cluedo.13thdivision.nl 1.1.1.1
+#$start = nslookup -q=TXT cluedo.13thdivision.nl 1.1.1.1
+$start = Resolve-DnsName -Name "cluedo.13thdivision.nl" -Type TXT
 $start
 
 #2
