@@ -1,36 +1,44 @@
 #region Foreach-Object -parallel
 $logNames = 'Application','System','Windows PowerShell','Microsoft-Windows-Store/Operational'
 
-Measure-Command {
-    $logEntries = $logNames | ForEach-Object -Parallel {
-        Get-WinEvent -LogName $_ -MaxEvents 10000
-    } -ThrottleLimit 5
-    $logEntries.Count
-}
-
-# non parallel
+# all versions: non-parallel
 Measure-Command {
     $logEntries = $logNames | ForEach-Object {
         Get-WinEvent -LogName $_ -MaxEvents 10000
     }
     $logEntries.Count
 }
+
+# NEW: parallel
+Measure-Command {
+    $logEntries = $logNames | ForEach-Object -Parallel {
+        Get-WinEvent -LogName $_ -MaxEvents 10000
+    } -ThrottleLimit 5
+    $logEntries.Count
+}
 #endregion
 
 #region ternary operator
-# compact if-else statements
+# old way: if-else statements
+if ($true) {
+    "This is true"
+} else {
+    "This is false"
+}
+
+# same thing in the new way
 $true ? "This is true" : "This is false"
 #endregion
 
 #region Pipeline chain operators
 # using $? and $LASTEXITCODE to determine success -< works with external commands, too
-Test-Path -Path doesnotexist.txt || "I would tun this if the path existed"
-Test-Path -Path doesnotexist.txt && "The file does not exist"
+Test-Path -Path doesnotexist.txt || "I would run this if the path existed"
+Test-Path -Path "C:\Temp\myfile.txt" && New-Item -Type File -Path "C:\Temp\myfile.txt"
 #endregion
 
-#region null colescing operators
+#region null coalescing operators
 # ?? and ??=
-# ?? the left side if it's not $null. Otherwise Powershell evaluates the right side.
+# ?? returns the left side if it's not $null. Otherwise Powershell evaluates the right side.
 
 "Hello" ?? "You don't see me."
 $null ?? "Now you do."
@@ -38,9 +46,9 @@ $null ?? "Now you do."
 # ??= if left side is $null, Powershell assigns the right side to it
 Remove-Variable -Name PWSHProcesses -Force -ErrorAction SilentlyContinue # make sure our test variable is gone
 $PWSHProcesses ??= Get-Process -Name pwsh
-Start-Process pwsh 
+Start-Process pwsh # let's start a new PowerShell process
 $PWSHProcesses ??= Get-Process -Name pwsh # assignment, does not display anything
-$PWSHProcesses # still the same number of processes -> right side did not execute and assign on the second go
+$PWSHProcesses # still the same number of processes -> right side did not execute and assign anything on the second go
 #endregion
 
 #region error handling
