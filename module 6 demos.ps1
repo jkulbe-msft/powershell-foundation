@@ -309,7 +309,7 @@ $array[-1]
 $array[-1,-5]
 $array[5..7]
 
-# batched indexing in arrays:
+<# batched indexing in arrays:
 $first = 0
 $second = 4
 $batchsize = 5
@@ -320,6 +320,7 @@ do
     $first += $batchsize
     $second += $batchsize
 }while ($first -lt $array.count) 
+#>
 #endregion
 
 
@@ -343,7 +344,7 @@ $a.Add('test') # faster
 
 # Changing object items in an array
 $array[0] = "New value"
-$array.set(1,"Methode new value")
+$array.set(1,"Method new value")
 $array
 #endregion
 

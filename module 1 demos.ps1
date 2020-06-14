@@ -38,7 +38,7 @@ Get-Command -Name Get-Command -Syntax
 Get-Command -Name Get-Service -Syntax
 
 Get-Service # no parameters
-Get-Service -ComputerName localhostù,ùlocalhost # optional, can be multiple strings
+Get-Service -ComputerName localhost,localhost # optional, can be multiple strings
 Get-Service -DependentServices # optional, switch
  
 Get-Command Get-Service -Syntax # look at last parameter set
@@ -53,7 +53,7 @@ function show-demo
     $divider = 0
     Write-output -InputObject "This is default text - You just entered the function"
     Write-Verbose -Message "You enabled the verbose stream, starting a divide operation"
-    Write-debug -Message "You enabled the debug stream - trying to divide by $divider"
+    Write-Debug -Message "You enabled the debug stream - trying to divide by $divider"
     10/$divider  
 }
 

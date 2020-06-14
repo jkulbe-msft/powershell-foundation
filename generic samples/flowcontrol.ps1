@@ -1,6 +1,5 @@
 #region switch
 
-
 # using switch to count
 $archiveextensions = '.7z','.7zip','.ace','.air','.apk','.appxbundle','.arc','.arj','.asec','.bar','.bin','.cab','.cso','.deb','.dlc','.gz','.gzip','.hqx','.inv','.ipa','.isz','.jar',,'.msu','.nbh','.pak','.rar','.rpm','.sis','.sisx','.sit','.sitd','.sitx','.tar','.tar.gz','.tgz','.webarchive','.xap','.zip'
 $audioextensions = '.3ga','.aac','.aiff','.amr','.ape','.arf','.asf','.cda','.dvf','.flac','.logic','.m4a','.m4b','.m4p','.midi','.mp3','.ogg','.pcm','.rec','.snd','.sng','.uax','.wav','.wma','.wpl','.zab'
@@ -20,7 +19,6 @@ switch ($files)
         { $videoextensions -contains $_.Extension } { $VideoSize += $_.Length }
         default { $OtherSize += $_.Length }
     }
-
 # switch wildcard
 
 switch -Wildcard ("fourteen")
@@ -42,5 +40,4 @@ switch -Regex ($target)
     '\w+@\w+\.com|edu|org' { "$_ is an email address"; Break }
     'http[s]?\://.*' { "$_ is a web address"; Break }
 }
-
 #endregion

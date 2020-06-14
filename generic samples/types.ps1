@@ -15,13 +15,11 @@ $true -eq 2 #intended behaviour
 [bool]"Hello" # OK
 [bool]"False" # unexpected. Non-empty strings are true, just like in other languages.
 [System.Convert]::ToBoolean("False") # use this instead
-
 #endregion
 
 #region Arrays
 
 # add to arrays
-
 $a = @()
 $a += 'test' # slow
 $a.Add('test') # error, array is fixed size
@@ -37,13 +35,11 @@ $a.Remove('test')
 
 # Changing object items in an array
 $array[0] = "New value"
-$array.set(1,"Methode new value")
+$array.set(1,"Method new value")
 $array
-
 #endregion
 
 #region hashtables
-
 $HashTable = @{
         FirstName = 'Jan'
         LastName = 'Kulbe'
@@ -67,17 +63,14 @@ $HashTable.Keys | ForEach-Object {
     "The value for key $_ is $($HashTable[$_])."
 } 
 
-
 # calculated properties
 Get-ChildItem C:\Windows -File | Select-Object -Property Name,Length,@{Label='SizeKB';Expression={[math]::round($_.Length/1KB)}}
-
 
 # splatting
 $params = @{
     LogName      = "application"
     Newest       = 10
     EntryType    = "Warning"}
-
 Get-EventLog @Params
 
 # custom objects - for PS 5+ better use pscustomobject
@@ -105,12 +98,8 @@ foreach ($service in $services)
     'Date' = $now
     'LuckyNumber' = (Get-Random -Minimum 1 -Maximum 10) }
 }
-
-
-
 #endregion
 
 #region consructors
-
 ([type]"Net.Sockets.TCPClient").GetConstructors() | ForEach-Object {$_.GetParameters()} | Select-Object Name,ParameterType
 #endregion

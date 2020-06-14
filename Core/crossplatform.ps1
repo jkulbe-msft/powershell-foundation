@@ -14,6 +14,7 @@ $env:MYVARIABLE = "Hello" # works, but better use .Net classes
 
 [Environment]::UserName
 [Environment]::MachineName # $env:computername only available on Windows
+[Environment]::NewLine
 [IO.Path]::GetTempPath()
 [IO.Path]::DirectorySeparatorChar
 
