@@ -1,3 +1,0 @@
-function HelloWorld {
-    "Hello World"
-}
