@@ -8,7 +8,7 @@ $graphicsextensions = '.3d','.3ds','.abr','.ai','.ani'.'.arw','.bmp'.'.c4d','.cd
 $mailextensions = '.dbx','.eml','.ldif','.msg','.pst','.vcf'
 $videoextensions = '.264','.3g2','.3gp','.asx','.avi','.bik','.dash','.dat','.dvr','.flv','.h264','.m2t','.m2ts','.m4v','.mkv','.mod','.mov','.mp4','.mpeg','.mpg','.mswmm','.mts','.ogv','.prproj','.rmvb','.swf','.tod','.tp','.ts','.vob','.webm','.wmv'
 
-$files = Get-ChildItem -Path $env:OneDrive -Recurse -Force -ErrorAction SilentlyContinue
+$files = Get-ChildItem -Path $env:OneDriveCommercial -Recurse -Force -ErrorAction SilentlyContinue
 switch ($files)
     {
         { $archiveextensions -contains $_.Extension } { $ArchiveSize += $_.Length }
@@ -33,7 +33,7 @@ switch -Wildcard ("fourteen")
 # switch file looks at each line in a file
 
 # swtch regex
-$target = 'user@contoso.com'
+$target = 'user1@contoso.com'
 switch -Regex ($target)
 {
     'ftp\://.*' { "$_ is an ftp address"; Break }

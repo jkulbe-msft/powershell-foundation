@@ -87,17 +87,20 @@ $object = New-Object -TypeName PSObject -Property $props
 Write-Output $object}
 
 #pscustomobject
-$Services = Get-Service
-$now = Get-Date
-foreach ($service in $services)
-{
-    [pscustomobject]@{
-    'ComputerName' = $env:computername
-    'ServiceName' = $Service.name
-    'NumberofDependentServices' = $Service.DependentServices.count
-    'Date' = $now
-    'LuckyNumber' = (Get-Random -Minimum 1 -Maximum 10) }
-}
+function Get-Customobject {
+    $Services = Get-Service
+    $now = Get-Date
+    foreach ($service in $services)
+        {
+            [pscustomobject]@{
+            'ComputerName' = $env:computername
+            'ServiceName' = $Service.name
+            'NumberofDependentServices' = $Service.DependentServices.count
+            'Date' = $now
+            'Wochentag' = $now.DayOfWeek
+            'LuckyNumber' = (Get-Random -Minimum 1 -Maximum 10) }
+        }
+    }
 #endregion
 
 #region consructors
