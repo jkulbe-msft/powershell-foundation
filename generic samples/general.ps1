@@ -88,9 +88,7 @@ Benefits:
 -	Clearer separation between logic and code
 -	Ability to format input further (not shown here)
 -	Insert into HERE strings with disabled content interpretation (single-quotes). This makes it possible to define here-strings without the hassle of escaping lots of $ characters (if present) and still insert content into it
-
 #>
-
 #endregion
 
 #region code signing
