@@ -63,6 +63,10 @@ $HashTable.Keys | ForEach-Object {
     "The value for key $_ is $($HashTable[$_])."
 } 
 
+$HashTable.GetEnumerator() | ForEach-Object {
+    "The value for key $($_.Key) is $($_.Value)."
+} 
+
 # calculated properties
 Get-ChildItem C:\Windows -File | Select-Object -Property Name,Length,@{Label='SizeKB';Expression={[math]::round($_.Length/1KB)}}
 
@@ -103,6 +107,6 @@ function Get-Customobject {
     }
 #endregion
 
-#region consructors
+#region constructors
 ([type]"Net.Sockets.TCPClient").GetConstructors() | ForEach-Object {$_.GetParameters()} | Select-Object Name,ParameterType
 #endregion
