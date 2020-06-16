@@ -1,0 +1,20 @@
+{
+    "FirstName": "Jan",
+    "LastName": "Kulbe",
+    "YachtName": null,
+    "LuckyNumber": 7,
+    "Computer": {
+        "Model":"Surface Book",
+        "HasSSD": true
+    },
+    "Phone": [
+        {
+            "number": "555-1234",
+            "type": "home"
+        },
+        {
+            "number": "555-9876",
+            "type": "work"
+        }
+    ]
+}
