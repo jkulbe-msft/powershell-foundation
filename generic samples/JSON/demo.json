@@ -4,7 +4,7 @@
     "YachtName": null,
     "LuckyNumber": 7,
     "Computer": {
-        "Model":"Surface Book",
+        "Model": "Surface Book",
         "HasSSD": true
     },
     "Phone": [
@@ -15,6 +15,10 @@
         {
             "number": "555-9876",
             "type": "work"
+        },
+        {
+            "number": "555-1566",
+            "type": "mobile"
         }
     ]
 }
