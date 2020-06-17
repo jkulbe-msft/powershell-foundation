@@ -93,6 +93,24 @@ Benefits:
 
 #region code signing
 $codeSignCert = New-SelfSignedCertificate -Subject "My code signing certificate" -Type CodeSigningCert -CertStoreLocation Cert:\LocalMachine\My
-Move-Item -Path $codeSignCert.PSPath -Destination 'Cert:\LocalMachine\Root'
+Move-Item -Path $codeSignCert.PSPath -Destination 'Cert:\LocalMachine\Root'  -NotAfter (Get-Date).AddYears(50)
 Set-AuthenticodeSignature -Certificate $codeSignCert -FilePath myscript.ps1
-#endregion
+
+# user option
+$certfile = New-TemporaryFile
+New-SelfSignedCertificate -DnsName 'info@example.com' -Type CodeSigning -CertStoreLocation 'cert:\CurrentUser\My' -NotAfter (Get-Date).AddYears(50)
+Export-Certificate -Cert (Get-ChildItem Cert:\CurrentUser\My -CodeSigningCert)[0] -FilePath $certfile.FullName
+Import-Certificate -FilePath $certfile.FullName -Cert Cert:\CurrentUser\TrustedPublisher
+# import-certificate to root displays a prompt
+certutil -addstore "Root" $certfile.fullname
+Remove-Item $certfile -Force
+
+$cert = (Get-ChildItem Cert:\CurrentUser\My -CodeSigningCert)[0]
+Set-AuthenticodeSignature -Certificate $cert -FilePath myscript.ps1
+
+# vscode
+Register-EditorCommand -Name SignCurrentScript -DisplayName 'Sign Current Script' -ScriptBlock {
+    $cert = (Get-ChildItem Cert:\CurrentUser\My -CodeSigningCert)[0]
+    $currentFile = $psEditor.GetEditorContext().CurrentFile.Path
+    Set-AuthenticodeSignature -Certificate $cert -FilePath $currentFile
+}
