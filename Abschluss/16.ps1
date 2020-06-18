@@ -22,7 +22,7 @@
         'Path' = $Path
         'MaxSize' = $MaxSize
         'FileSizeSum' = $MeasuredFiles.Sum
-        'FileSizeAvg' = [math]::Round($MeasuredFiles.Average, 1)
+        'FileSizeAvg' = [math]::Round($MeasuredFiles.Average, 1, [System.MidpointRounding]::AwayFromZero)
         'Date' = $Today
         'DaysUntilChristmas' = ((Get-Date -Month 12 -Day 24) - $Today).Days
         'GUID' = [guid]::NewGuid()
