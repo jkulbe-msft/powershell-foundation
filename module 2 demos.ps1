@@ -25,6 +25,9 @@ $host
 
 #region slide 44 user defined variables
 $1 = 1 
+${My Variable} = 2
+${🤣} = 'LOL'
+
 $test = "test variable"
 New-Variable -Name test -Value "also works"
 #constant variables
