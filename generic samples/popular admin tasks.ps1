@@ -150,3 +150,36 @@ $oXMLDocument.selectNodes("config/system/document[@authorSurname=""Smith""]")
 $oXMLDocument.selectNodes("config/system/document[@authorSurname=""Smith"" and starts-with(@date,""201302"")]")
 
 #endregion
+
+#region remote modules
+
+Get-ADUser -Filter * # error, command not available on workstation
+$session = New-PSSession -ComputerName Lab1DC1
+Invoke-Command -Session $session -ScriptBlock {Import-Module ActiveDirectory}
+Get-ADUser -Filter * # still not available
+Import-PSSession $session -DisableNameChecking -ErrorAction SilentlyContinue
+Get-ADUser -Filter * # now we have a new command :-)
+Remove-PSSession -Session $session
+Get-ADUser -Filter * # and it's gone
+
+$session = New-PSSession -ComputerName Lab1DC1
+Invoke-Command -Session $session -ScriptBlock {Import-Module ActiveDirectory}
+Import-PSSession $session -DisableNameChecking -ErrorAction SilentlyContinue -Prefix MyCommand
+Get-MyCommandADUser -Filter * # with custom prefix
+Get-Help Get-MyCommandADUser # Get-Help works, content shows the original name
+Remove-PSSession -Session $session
+
+# Exchange 
+$UserCredential = Get-Credential
+$Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri http://<ServerFQDN>/PowerShell/ -Authentication Kerberos -Credential $UserCredential
+Import-PSSession $Session
+Get-Mailbox
+Remove-PSSession $Session
+
+$Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri http://<ServerFQDN>/PowerShell/ -Authentication Kerberos -Credential $UserCredential
+Import-PSSession $Session -Prefix EX
+Get-EXMailbox
+Remove-PSSession $Session
+
+
+#endregion
