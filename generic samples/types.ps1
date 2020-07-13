@@ -97,11 +97,11 @@ function Get-Customobject {
     foreach ($service in $services)
         {
             [pscustomobject]@{
-            'ComputerName' = $env:computername
+            'ComputerName' = $env:computername 
             'ServiceName' = $Service.name
             'NumberofDependentServices' = $Service.DependentServices.count
             'Date' = $now
-            'Wochentag' = $now.DayOfWeek
+            'DayOfWeek' = $now.DayOfWeek
             'LuckyNumber' = (Get-Random -Minimum 1 -Maximum 10) }
         }
     }
