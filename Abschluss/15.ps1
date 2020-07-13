@@ -2,9 +2,8 @@
 {
     [CmdletBinding()]
     param(
-    [Parameter(ValueFromPipeline=$true,
-    ValueFromPipelineByPropertyName=$true)]
-    [Alias("FullName")]
+    [Parameter(ValueFromPipeline=$true)]
+    
     [string]$Path,
     $MaxSize)
 
@@ -31,7 +30,7 @@
 
 Get-Item -Path C:\Windows | Get-SmallFile -MaxSize 100000
 
-# die alten Varianten sollen immer noch gehen
+# all previous calls to the function shoud continue to work
 
 # Get-SmallFile -MaxSize 100000 -Path C:\Windows
 # 'C:\Windows' | Get-SmallFile -MaxSize 100000
