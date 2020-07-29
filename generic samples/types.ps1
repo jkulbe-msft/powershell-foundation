@@ -91,20 +91,35 @@ $object = New-Object -TypeName PSObject -Property $props
 Write-Output $object}
 
 #pscustomobject
-function Get-Customobject {
+function Get-CustomObject {
     $Services = Get-Service
     $now = Get-Date
     foreach ($service in $services)
         {
             [pscustomobject]@{
-            'ComputerName' = $env:computername 
-            'ServiceName' = $Service.name
-            'NumberofDependentServices' = $Service.DependentServices.count
-            'Date' = $now
-            'DayOfWeek' = $now.DayOfWeek
-            'LuckyNumber' = (Get-Random -Minimum 1 -Maximum 10) }
+            PSTypeName = 'My.CustomObject'
+            ComputerName = $env:computername 
+            ServiceName = $Service.name
+            NumberofDependentServices = $Service.DependentServices.count
+            Date = $now
+            DayOfWeek = $now.DayOfWeek
+            LuckyNumber = (Get-Random -Minimum 1 -Maximum 10) }
         }
     }
+
+Get-CustomObject
+Get-CustomObject | Get-Member
+# https://docs.microsoft.com/en-us/powershell/scripting/learn/deep-dives/everything-about-pscustomobject?view=powershell-7
+$TypeData = @{
+    TypeName = 'My.CustomObject'
+    DefaultDisplayPropertySet = 'ServiceName','LuckyNumber'
+}
+Update-TypeData @TypeData
+Get-CustomObject
+#endregion
+
+#region custom type
+$myObject.PSObject.TypeNames.Insert(0,"My.Object")
 #endregion
 
 #region constructors
