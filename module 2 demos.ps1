@@ -131,7 +131,7 @@ $date2 = "John Luc"
 [System.Net.Dns]::GetHostByAddress("8.8.8.8")
 #endregion
 
-#region slide 70 typer operator
+#region slide 70 type operator
 "192.168.0.1" -as [System.Net.IPAddress]
 "192.168.0.1" -is [System.Net.IPAddress]
 ("192.168.0.1" -as [System.Net.IPAddress]) -is [system.net.ipaddress]
