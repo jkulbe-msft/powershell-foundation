@@ -118,8 +118,15 @@ Update-TypeData @TypeData
 Get-CustomObject
 #endregion
 
-#region custom type
+#region custom type and add-member
+$myobject = [PSCustomObject]@{
+    Number = '3.141592'
+}
 $myObject.PSObject.TypeNames.Insert(0,"My.Object")
+$myobject | Add-Member -TypeName MyPi
+$myobject | Add-Member -NotePropertyName MyNoteProperty -NotePropertyValue 'MyNotePropertyValue'
+$myobject | Add-Member -MemberType AliasProperty -Name Pi -Value Number
+$myobject | Add-Member -MemberType ScriptProperty -Name RoundedNumber -Value {[math]::round($this.Number,2, [System.MidpointRounding]::AwayFromZero)}
 #endregion
 
 #region classes
