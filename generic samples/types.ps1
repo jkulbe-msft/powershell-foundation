@@ -122,6 +122,62 @@ Get-CustomObject
 $myObject.PSObject.TypeNames.Insert(0,"My.Object")
 #endregion
 
+#region classes
+
+Enum TVTechnology {
+    CRT = 1
+    LCD = 2
+    Plasma = 3
+    OLED = 4
+}
+
+class TV {
+    [string]$Make
+    [string]$Model
+    [int]$ScreenSize
+    [bool]$IsOn = $false
+    [int]$CurrentChannel
+    [TVTechnology]$Technology = 2
+
+    [void]TogglePower(){
+        $this.IsOn = -not $this.IsOn
+    }
+    [int]ChannelUp(){
+        $this.CurrentChannel++
+        return $this.CurrentChannel
+    }
+    [int]ChannelDown(){
+        $this.CurrentChannel--
+        return $this.CurrentChannel
+    }
+    [void]SetChannel([int]$Channel) {
+        $this.CurrentChannel = $Channel
+    }
+    
+    static [bool]IsLarge([int]$ScreenSize) {
+        if ($ScreenSize -ge 55) {return $true} else {return $false}
+    }
+
+    TV ([string]$Make,[string]$Model,[int]$ScreenSize){
+        $this.Make = $Make
+        $this.Model = $Model
+        $this.ScreenSize = $ScreenSize
+        $this.CurrentChannel = Get-Random -Minimum 1 -Maximum 99
+    }
+    TV ([string]$Make,[string]$Model,[int]$ScreenSize,$Technology){
+        $this.Make = $Make
+        $this.Model = $Model
+        $this.ScreenSize = $ScreenSize
+        $this.CurrentChannel = Get-Random -Minimum 1 -Maximum 99
+        $this.Technology = $Technology
+    }
+}
+
+$TV = [TV]::new('Contoso','FlixMaster 2000',55,'OLED')
+$TV2 = [TV]::new('Contoso','Plasmastar',65,[TVTechnology]::Plasma)
+[TV]::IsLarge(65)
+#endregion
+
 #region constructors
 ([type]"Net.Sockets.TCPClient").GetConstructors() | ForEach-Object {$_.GetParameters()} | Select-Object Name,ParameterType
 #endregion
