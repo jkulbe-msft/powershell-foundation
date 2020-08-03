@@ -138,6 +138,12 @@ Enum TVTechnology {
     OLED = 4
 }
 
+Enum TVInput {
+    SCART = 1
+    HDMI = 2
+    VGA = 4
+}
+
 class TV {
     [string]$Make
     [string]$Model
@@ -145,6 +151,7 @@ class TV {
     [bool]$IsOn = $false
     [int]$CurrentChannel
     [TVTechnology]$Technology = 2
+    [int]$Input
 
     [void]TogglePower(){
         $this.IsOn = -not $this.IsOn
@@ -183,6 +190,12 @@ class TV {
 $TV = [TV]::new('Contoso','FlixMaster 2000',55,'OLED')
 $TV2 = [TV]::new('Contoso','Plasmastar',65,[TVTechnology]::Plasma)
 [TV]::IsLarge(65)
+
+$TV.Input = [TVInput]::HDMI -bor [TVInput]::VGA -bor [TVInput]::SCART # add connectors
+$TV.Input = $TV.Input -bxor [TVInput]::SCART # remove SCART
+$TV.Input -band [TVInput]::HDMI # does my TV have an HDMI connector?
+$TV.Input -band [TVInput]::SCART # does my TV have a SCART connector?
+
 #endregion
 
 #region constructors
