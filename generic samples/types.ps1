@@ -145,6 +145,7 @@ Enum TVInput {
 }
 
 class TV {
+    # properties
     [string]$Make
     [string]$Model
     [int]$ScreenSize
@@ -152,7 +153,7 @@ class TV {
     [int]$CurrentChannel
     [TVTechnology]$Technology = 2
     [int]$Input
-
+    # methods
     [void]TogglePower(){
         $this.IsOn = -not $this.IsOn
     }
@@ -167,11 +168,11 @@ class TV {
     [void]SetChannel([int]$Channel) {
         $this.CurrentChannel = $Channel
     }
-    
+    # static method
     static [bool]IsLarge([int]$ScreenSize) {
         if ($ScreenSize -ge 55) {return $true} else {return $false}
     }
-
+    # constructors
     TV ([string]$Make,[string]$Model,[int]$ScreenSize){
         $this.Make = $Make
         $this.Model = $Model
