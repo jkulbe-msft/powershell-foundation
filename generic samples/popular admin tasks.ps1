@@ -180,6 +180,8 @@ $Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri ht
 Import-PSSession $Session -Prefix EX
 Get-EXMailbox
 Remove-PSSession $Session
+#endregion
 
-
+#region default parameter values
+$PSDefaultParameterValues = @{'New*:WhatIf'=$true}
 #endregion
