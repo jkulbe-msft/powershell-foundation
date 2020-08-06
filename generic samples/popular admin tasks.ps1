@@ -185,3 +185,7 @@ Remove-PSSession $Session
 #region default parameter values
 $PSDefaultParameterValues = @{'New*:WhatIf'=$true}
 #endregion
+
+#region special folders
+[System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::CommonDesktopDirectory)
+#endregion
