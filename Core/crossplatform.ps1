@@ -17,6 +17,7 @@ $env:MYVARIABLE = "Hello" # works, but better use .Net classes
 [Environment]::NewLine
 [IO.Path]::GetTempPath()
 [IO.Path]::DirectorySeparatorChar
+[System.IO.Path]::Combine('Azure:', '*', 'ResourceGroups', '*')
 
 [Environment]::SetEnvironmentVariable('MyMachineVar','MyValue','Machine')
 #endregion
