@@ -19,7 +19,7 @@ $env:MYVARIABLE = "Hello" # works, but better use .Net classes
 [IO.Path]::DirectorySeparatorChar
 [System.IO.Path]::Combine('Azure:', '*', 'ResourceGroups', '*')
 
-[Environment]::SetEnvironmentVariable('MyMachineVar','MyValue','Machine')
+# [Environment]::SetEnvironmentVariable('MyMachineVar','MyValue','Machine')
 #endregion
 
 #region path
@@ -30,8 +30,9 @@ Join-Path -Path '.\MyFolder\MySubFolder' -ChildPath 'MyFile' # manages correct p
 $env:Path # works on Windows, empty on MacOS/Linux
 $env:PATH # this works, mind case-sensitivity
 
-$MyHashTable = @{ 'FirstName' = 'John';'LastName'='Smith'}
-$MyHashTable['firstname'] # returns nothing on Linux/MacOS, keys are case-sensitive
-$MyHashTable['FirstName'] # works as expected
-$myhashtable['FirstName'] # also works, variable names are not case sensitive 
+# unexpected hash table case sensitivity is now fixed in .Net Core. See https://github.com/PowerShell/PowerShell/issues/7761
+# $MyHashTable = @{ 'FirstName' = 'John';'LastName'='Smith'}
+# $MyHashTable['firstname'] # returns nothing on Linux/MacOS, keys are case-sensitive
+# $MyHashTable['FirstName'] # works as expected
+# $myhashtable['FirstName'] # also works, variable names are not case sensitive 
 #endregion
