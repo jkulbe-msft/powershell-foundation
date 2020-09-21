@@ -13,7 +13,7 @@ Get-ChildItem env: # works, but better use .Net classes
 $env:MYVARIABLE = "Hello" # works, but better use .Net classes
 [Environment]::SetEnvironmentVariable('MYVARIABLE','Hello')
 [Environment]::GetEnvironmentVariable('MYVARIABLE')
-[Environment]::GetEnvironmentVariable('MyVariable') # emptyon Linux, environment variables are case sensitive 
+[Environment]::GetEnvironmentVariable('MyVariable') # empty on Linux, environment variables are case sensitive 
 [Environment]::SetEnvironmentVariable('MyMachineVar','MyValue','Machine') # only works on Windows
 
 [Environment]::UserName
