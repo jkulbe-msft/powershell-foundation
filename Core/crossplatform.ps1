@@ -11,19 +11,21 @@ $PSVersionTable.Platform
 #region environment variables
 Get-ChildItem env: # works, but better use .Net classes
 $env:MYVARIABLE = "Hello" # works, but better use .Net classes
+[Environment]::SetEnvironmentVariable('MYVARIABLE','Hello')
+[Environment]::GetEnvironmentVariable('MYVARIABLE')
+[Environment]::GetEnvironmentVariable('MyVariable') # emptyon Linux, environment variables are case sensitive 
+[Environment]::SetEnvironmentVariable('MyMachineVar','MyValue','Machine') # only works on Windows
 
 [Environment]::UserName
 [Environment]::MachineName # $env:computername only available on Windows
 [Environment]::NewLine
 [IO.Path]::GetTempPath()
 [IO.Path]::DirectorySeparatorChar
+[IO.Path]::PathSeparator # the separator in the PATH environment variable, different between Windows and Linux
 [System.IO.Path]::Combine('Azure:', '*', 'ResourceGroups', '*')
 
-# [Environment]::SetEnvironmentVariable('MyMachineVar','MyValue','Machine')
-#endregion
-
 #region path
-Join-Path -Path '.\MyFolder\MySubFolder' -ChildPath 'MyFile' # manages correct path separators on all platforms
+Join-Path -Path '.\MyFolder\MySubFolder' -ChildPath 'MyFile' # manages correct path separators on all platforms, including pre-existing slshes
 #endregion
 
 #region case sensitivity
