@@ -32,8 +32,8 @@ $true ? "This is true" : "This is false"
 
 #region Pipeline chain operators
 # using $? and $LASTEXITCODE to determine success -< works with external commands, too
-Test-Path -Path doesnotexist.txt || "I would run this if the path existed"
-Test-Path -Path "C:\Temp\myfile.txt" && New-Item -Type File -Path "C:\Temp\myfile.txt"
+1/0 || "The last operation was an error"
+1/0 && "The last operation was a success!" # nope, no output
 #endregion
 
 #region null coalescing operators
