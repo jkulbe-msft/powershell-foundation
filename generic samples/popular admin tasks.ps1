@@ -326,5 +326,8 @@ $Devices = $DevicesRequest.Value
 $Devices
 #endregion
 
+#region local admin group
+Get-CimInstance -Query "Select * From Win32_Group Where LocalAccount = TRUE And SID = 'S-1-5-32-544'"
+#endregion
 
 #endregion
