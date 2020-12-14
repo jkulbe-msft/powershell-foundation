@@ -63,7 +63,7 @@ Get-ChildItem -path C:\Windows -File -Filter *.ini | Get-Content
 
 # Creating and removing 5 new local groups: (Run as admin)
 1..5 | New-Localgroup
-1..5 | ForEach-Object -process {Remove-LocalGroup -Name $_}
+1..5 | ForEach-Object {Remove-LocalGroup -Name $_}
 
 # Creating 5 new local groups and adding administrators group as member: (Run as admin)
 1..5 | New-Localgroup | ForEach-Object -process {Add-LocalGroupMember -Member administrators -Group $_}
@@ -71,7 +71,12 @@ Get-LocalGroupMember -Group 1
 1..5 | ForEach-Object -process {Remove-LocalGroup -Name $_}
 
 # Demonstrate that the pipeline uses optimization: (Run as admin)
-measure-command {1..300 | New-Localgroup | ForEach-Object -process {Add-LocalGroupMember -Member administrators -Group $_ ;$_} | ForEach-Object -process {Remove-LocalGroup -Name $_}}
+measure-command {
+    1..300 | 
+    New-Localgroup | 
+    ForEach-Object -process {Add-LocalGroupMember -Member administrators -Group $_ ;$_} | 
+    ForEach-Object -process {Remove-LocalGroup -Name $_}
+}
 
 measure-command {
     foreach ( $number in 1..300)
