@@ -40,7 +40,7 @@ Get-ADComputer -Filter "OperatingSystem -like 'Windows*'" -Properties OperatingS
     Sort-Object -Property name
 #endregion
 
-# region sites
+#region sites
 [System.DirectoryServices.ActiveDirectory.Forest]::GetCurrentForest().Sites
 [System.DirectoryServices.ActiveDirectory.ActiveDirectorySite]::GetComputerSite().Name
 #endregion
@@ -191,7 +191,7 @@ $PSDefaultParameterValues = @{'New*:WhatIf'=$true}
 #endregion
 
 #region certificates
-#region self-signed cert for Microsof Graph
+#region self-signed cert for Microsoft Graph
 # see https://itfordummies.net/2020/11/29/microsoft-graph-api-powershell-azuread-app/
 $DisplayName = "Microsoft Graph PowerShell Client Credentials"
 $NotAfter = $(Get-Date).AddYears(2)
@@ -326,8 +326,48 @@ $Devices = $DevicesRequest.Value
 $Devices
 #endregion
 
+#endregion 
+
 #region local admin group
 Get-CimInstance -Query "Select * From Win32_Group Where LocalAccount = TRUE And SID = 'S-1-5-32-544'"
 #endregion
 
+#region run as admin
+#x Requires -RunAsAdministrator
+# Get the ID and security principal of the current user account
+$myWindowsID=[System.Security.Principal.WindowsIdentity]::GetCurrent()
+$myWindowsPrincipal=new-object System.Security.Principal.WindowsPrincipal($myWindowsID)
+ 
+# Get the security principal for the Administrator role
+$adminRole=[System.Security.Principal.WindowsBuiltInRole]::Administrator
+ 
+# Check to see if we are currently running "as Administrator"
+if ($myWindowsPrincipal.IsInRole($adminRole))
+ 
+   {
+   # We are running "as Administrator" - so change the title and background color to indicate this
+   $Host.UI.RawUI.WindowTitle = $myInvocation.MyCommand.Definition + "(Elevated)"
+   $Host.UI.RawUI.BackgroundColor = "DarkBlue"
+   clear-host
+ 
+   }
+else
+   {
+   # We are not running "as Administrator" - so relaunch as administrator
+ 
+   # Create a new process object that starts PowerShell
+   $newProcess = new-object System.Diagnostics.ProcessStartInfo "PowerShell"
+ 
+   # Specify the current script path and name as a parameter
+   $newProcess.Arguments = $myInvocation.MyCommand.Definition
+ 
+   # Indicate that the process should be elevated
+   $newProcess.Verb = "runas"
+ 
+   # Start the new process
+   [System.Diagnostics.Process]::Start($newProcess)
+ 
+   # Exit from the current, unelevated, process
+   exit
+    }
 #endregion
