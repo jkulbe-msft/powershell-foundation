@@ -1,3 +1,8 @@
+#region speech
+Add-Type -AssemblyName System.Speech
+$speech = New-Object System.Speech.Synthesis.SpeechSynthesizer
+#endregion
+
 # type conversion madness
 # https://www.madwithpowershell.com/2018/03/leveraging-dynamic-type-conversion-in.html
 $__="$(@{})";$__[-((!@()+!@())*(!@()+!@())*(!@()+!@())+(!@()+!!@()))]+$__[-(!@()+!!@())]+$__[-(!@()+!@())]+$__[-(!@()+!@())]+$__[(!@()+!@())*(!@()+!@())*(!@()+!@())]
