@@ -1,3 +1,8 @@
+#region Emoji function
+function 🤣 {'LOL'}
+function 😄 (${🙄}, ${🤨}){${🙄}+${🤨}}
+#endregion
+
 #region speech
 Add-Type -AssemblyName System.Speech
 $speech = New-Object System.Speech.Synthesis.SpeechSynthesizer
