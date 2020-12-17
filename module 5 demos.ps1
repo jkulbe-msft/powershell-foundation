@@ -24,7 +24,7 @@ $files.name -like "*.exe"
 $files.name -like "[a-z]???pad.exe"    # -> Notepad.exe
 $files.name -notlike "*.[a-z][o][g]"   #  -> NOT any type of logfile ending on OG
 
-# Match "� Advanced regex will be in the PowerShell tool building course. Regex101.com can be used for  live testing although syntax might deviate a little for some PowerShell equivalents
+# Match: Advanced regex will be in the PowerShell tool building course. Regex101.com can be used for  live testing although syntax might deviate a little for some PowerShell equivalents
 "192.176.42.5" -match "176" #    -> Match 176 as numbers
 "192.176.42.5" -match "\d"  #   -> Match digits# -> Match IPv4 address
 
