@@ -44,7 +44,7 @@ $HashTable = @{
         FirstName = 'Jan'
         LastName = 'Kulbe'
 }
-$HashTable.Add('Job','PFE')
+$HashTable.Add('Job','Customer Engineer')
 $HashTable.Add('Job','X-Wing pilot') # you already have a job
 
 $HashTable.Remove('Job')
