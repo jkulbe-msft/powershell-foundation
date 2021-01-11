@@ -334,6 +334,13 @@ Get-CimInstance -Query "Select * From Win32_Group Where LocalAccount = TRUE And 
 
 #region run as admin
 #x Requires -RunAsAdministrator
+
+#quick test if we're elevated
+function Test-Administrator {
+    $user = [Security.Principal.WindowsIdentity]::GetCurrent();
+    (New-Object Security.Principal.WindowsPrincipal $user).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
+}
+
 # Get the ID and security principal of the current user account
 $myWindowsID=[System.Security.Principal.WindowsIdentity]::GetCurrent()
 $myWindowsPrincipal=new-object System.Security.Principal.WindowsPrincipal($myWindowsID)
@@ -371,3 +378,4 @@ else
    exit
     }
 #endregion
+
