@@ -78,3 +78,15 @@ Import-Module -Name GroupPolicy -SkipEditionCheck # force load a module natively
 #region Out-Gridview is back!
 Get-Process | Out-GridView -PassThru | Stop-Process -WhatIf
 #endregion
+
+#region PowerShell 7.1 supports TLS 1.3
+Invoke-RestMethod -Uri 'https://whatever.com' -SslProtocol Tls13
+#endregion
+
+#region Get-Random can shuffle a list
+"A","B","C" | Get-Random -Shuffle
+#endregion
+
+#region PowerShell 7.1 PSReadLine can predict commands from history
+Set-PSReadLineOption -PredictionSource History
+#endregion
