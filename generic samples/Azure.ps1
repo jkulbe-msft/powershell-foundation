@@ -12,3 +12,12 @@ Get-AzSubscription
 Set-AzContext -Subscription "My Subscription"
 #endregion
 
+#region limit AzureAD group creation
+Connect-AzureAD
+New-AzureADGroup -DisplayName "GroupCreators" -SecurityEnabled:$true -MailEnabled:$false -MailNickName "GroupCreators"
+Get-AzureADGroup -SearchString "GroupCreators" | Add-AzureADGroupMember -RefObjectId (Get-AzureADUser -SearchString "John Doe").ObjectId
+$Setting = Get-AzureADDirectorySetting -Id (Get-AzureADDirectorySetting | where -Property DisplayName -Value "Group.Unified" -EQ).id
+$Setting["EnableGroupCreation"] = "False"
+$Setting["GroupCreationAllowedGroupId"] = (Get-AzureADGroup -SearchString "GroupCreators").objectid
+Set-AzureADDirectorySetting -Id $Setting.Id -DirectorySetting $Setting
+#endregion
