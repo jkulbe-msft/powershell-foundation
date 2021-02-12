@@ -25,7 +25,8 @@ Connect-ExchangeOnline -UserPrincipalName navin@contoso.onmicrosoft.com
 Connect-ExchangeOnline -Device
 #endregion
 
-# enable Unified Group template for sensitivity labels
+#region compliance
+#region enable Unified Group template for sensitivity labels
 Import-Module azureadpreview
 Connect-AzureAD
 $Template = Get-AzureADDirectorySettingTemplate | Where {$_.DisplayName -eq "Group.Unified"}
@@ -37,4 +38,16 @@ $SettingId = (New-AzureADDirectorySetting -DirectorySetting $Setting).id
 Set-AzureADDirectorySetting -Id $SettingId -DirectorySetting $Setting
 # tenants with existing settings
 Set-AzureADDirectorySetting -Id $Setting.Id -DirectorySetting $Setting
+#endregion
 
+#endregion
+
+#region Teams room
+Connect-ExchangeOnline
+New-Mailbox -Name "NY-TeamsRoom1" -Alias NY-TeamsRoom1 -Room -EnableRoomMailboxAccount $true -MicrosoftOnlineServicesID NY-TeamsRoom1@<YourTenant>.onmicrosoft.com -RoomMailboxPassword (ConvertTo-SecureString -String 'pass@word1' -AsPlainText -Force)
+Set-CalendarProcessing -Identity "NY-TeamsRoom1" -AutomateProcessing AutoAccept -AddOrganizerToSubject $false -DeleteComments $false -DeleteSubject $false -RemovePrivateProperty $false -AddAdditionalResponse $true -AdditionalResponse "This is a Teams Meeting room"
+Disconnect-ExchangeOnline
+Connect-AzureAD
+Get-AzureADUser | Where {$_.DisplayName -eq "NY-TeamsRoom1"} | Set-AzureADUser -PasswordPolicies DisablePasswordExpiration
+# don't forget to add a Temas room license
+#endregion
