@@ -114,3 +114,7 @@ Register-EditorCommand -Name SignCurrentScript -DisplayName 'Sign Current Script
     $currentFile = $psEditor.GetEditorContext().CurrentFile.Path
     Set-AuthenticodeSignature -Certificate $cert -FilePath $currentFile
 }
+
+# simulate File Downloaded from internet
+$file = 'C:\scripts\helloWorld.ps1'
+Add-Content $file -Stream Zone.Identifier "[ZoneTransfer]`r`nZoneId=3"
