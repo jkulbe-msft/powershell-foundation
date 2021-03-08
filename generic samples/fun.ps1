@@ -12,6 +12,10 @@ $speech = New-Object System.Speech.Synthesis.SpeechSynthesizer
 # https://www.madwithpowershell.com/2018/03/leveraging-dynamic-type-conversion-in.html
 $__="$(@{})";$__[-((!@()+!@())*(!@()+!@())*(!@()+!@())+(!@()+!!@()))]+$__[-(!@()+!!@())]+$__[-(!@()+!@())]+$__[-(!@()+!@())]+$__[(!@()+!@())*(!@()+!@())*(!@()+!@())]
 
+# moin
+77,111,105,110 | ForEach-Object -Begin {$ausgabe=$null} -Process {$ausgabe += [char]$_} -End {$ausgabe}
+77,111,105,110 | ForEach-Object { Write-Host ([char]$_) -NoNewline}
+
 
 <#
 
