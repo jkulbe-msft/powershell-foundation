@@ -115,6 +115,6 @@ Register-EditorCommand -Name SignCurrentScript -DisplayName 'Sign Current Script
     Set-AuthenticodeSignature -Certificate $cert -FilePath $currentFile
 }
 
-# simulate File Downloaded from internet
+# simulate File Downloaded from internet - MOTW
 $file = 'C:\scripts\helloWorld.ps1'
 Add-Content $file -Stream Zone.Identifier "[ZoneTransfer]`r`nZoneId=3"
