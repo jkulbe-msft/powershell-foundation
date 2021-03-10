@@ -39,25 +39,32 @@ $array.set(1,"Method new value")
 $array
 
 # speed test array vs. array list
-$limit = 10000
 
-$ArrayTime = (Measure-command  {
-    $Array = @()
-    1..$limit | ForEach-Object {
-        $Array += "Hello World"
+function Measure-ArrayTime {
+    param([int]$limit)
+
+    $ArrayTime = (Measure-command  {
+        $Array = @()
+        1..$limit | ForEach-Object {
+            $Array += "Hello World"
+        }
+    }).TotalMilliseconds
+
+    $ArrayListTime = (Measure-command  {
+        
+        $Array = New-Object System.Collections.ArrayList
+        1..$limit | ForEach-Object {
+            $Array.Add("Hello World")
+        }
+
+    }).TotalMilliseconds
+
+    [PSCustomObject]@{
+        Limit = $limit
+        ArrayTime = $ArrayTime
+        ArrayListTime = $ArrayListTime
     }
-}).TotalMilliseconds
-
-$ArrayListTime = (Measure-command  {
-    
-    $Array = New-Object System.Collections.ArrayList
-    1..$limit | ForEach-Object {
-        $Array.Add("Hello World")
-    }
-}).TotalMilliseconds
-
-Write-Output "Adding $limit strings to an array took $ArrayTime ms"
-Write-Output "Adding $limit strings to an arraylist took $ArrayListTime ms"
+}
 #endregion
 
 #region hashtables
