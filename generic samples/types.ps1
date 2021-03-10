@@ -41,11 +41,11 @@ $array
 # speed test array vs. array list
 
 function Measure-ArrayTime {
-    param([int]$limit)
+    param([int]$count)
 
     $ArrayTime = (Measure-command  {
         $Array = @()
-        1..$limit | ForEach-Object {
+        1..$count | ForEach-Object {
             $Array += "Hello World"
         }
     }).TotalMilliseconds
@@ -53,16 +53,16 @@ function Measure-ArrayTime {
     $ArrayListTime = (Measure-command  {
         
         $Array = New-Object System.Collections.ArrayList
-        1..$limit | ForEach-Object {
+        1..$count | ForEach-Object {
             $Array.Add("Hello World")
         }
 
     }).TotalMilliseconds
 
     [PSCustomObject]@{
-        Limit = $limit
-        ArrayTime = $ArrayTime
-        ArrayListTime = $ArrayListTime
+        Count = $count
+        ArrayTimeMilliSeconds = $ArrayTime
+        ArrayListTimeMilliSeconds = $ArrayListTime
     }
 }
 #endregion
