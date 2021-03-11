@@ -23,6 +23,7 @@
         {
             # return one object for every service
             [pscustomobject]@{
+            'PSTypeName' = 'My.CustomObject'
             'ComputerName' = $env:computername
             'ServiceName' = $Service.name
             'NumberofDependentServices' = $Service.DependentServices.count
