@@ -1,3 +1,6 @@
+# list type accelerators
+[PSObject].Assembly.GetType("System.Management.Automation.TypeAccelerators")::Get
+
 #region boolean
 
 # unexpected behaviour
