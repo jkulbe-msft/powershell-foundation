@@ -31,7 +31,7 @@ $files.name -notlike "*.[a-z][o][g]"   #  -> NOT any type of logfile ending on O
 #Contains:
 "1","2","3","4","5" -contains "two"
 "1","2","3","4","5" -contains 0
-"apple",$true,"x","�pear" -contains "true"
+"apple",$true,"x","pear" -contains "true"
 (get-service) -contains "WSearch"
 (get-service).name -notcontains "WSearch"
 #endregion
