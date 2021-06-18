@@ -79,7 +79,7 @@ measure-command {
 }
 
 measure-command {
-    foreach ( $number in 1..300)
+    foreach ($number in 1..300)
     {
         New-Localgroup -Name $number
         Add-LocalGroupMember -Member administrators -Group $number
