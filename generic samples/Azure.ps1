@@ -5,7 +5,7 @@ $proxyUri = New-Object -Type System.Uri("http://<proxy>:<port>")
 [System.Net.WebRequest]::DefaultWebProxy.Credentials = [System.Net.CredentialCache]::DefaultCredentials
 #endregion
 
-#region logon
+#region logon to Azure
 Connect-AzAccount
 Get-AzContext
 Get-AzSubscription
